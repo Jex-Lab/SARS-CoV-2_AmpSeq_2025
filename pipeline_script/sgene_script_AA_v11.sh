@@ -12,26 +12,14 @@
 module load cutadapt
 module load trimmomatic
 module load miniconda3
-eval "$(conda shell.bash hook)"
 
 # assign job directory path variable.
 FILEPATH=`pwd -P`
 
-# copy metafata files and remove carriage returns.
+# remove excel carriage returns.
 sed 's/\r$//' -i $FILEPATH/meta/oh2_meta.txt
-wait
-rm $FILEPATH/meta/ampseq_grep_MASTER_FILE_194bp_DELs.txt
-wait
-cp /stornext/General/data/academic/lab_jex/MINISEQ_AMPSEQ_DATA/sgene_grep_refs/ampseq_grep_MASTER_FILE_194bp_DELs.txt $FILEPATH/meta
-wait
 sed 's/\r$//' -i $FILEPATH/meta/ampseq_grep_MASTER_FILE_194bp_DELs.txt
-wait
-rm $FILEPATH/meta/ampseq_440_503_codons_REF.txt
-wait
-cp /stornext/General/data/academic/lab_jex/MINISEQ_AMPSEQ_DATA/sgene_grep_refs/ampseq_440_503_codons_REF.txt $FILEPATH/meta
-wait
 sed 's/\r$//' -i $FILEPATH/meta/ampseq_440_503_codons_REF.txt
-wait
 
 # create files of reference variables.
 sort -t ',' -k2 $FILEPATH/meta/oh2_meta.txt | awk -F, '{print $1}' > $FILEPATH/meta/oh2_index.txt
